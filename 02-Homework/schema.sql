@@ -1,12 +1,29 @@
-INSERT INTO department (section)
-VALUES ("HR"), ("Tech"), ("Sales"),("Operations");
+DROP DATABASE IF EXISTS employee_db;
 
-INSERT INTO role (title, salary, department_id)
-VALUES("Benefits","75000", 1), ("Web Dev", "80000", 2), ("Sales Manager","100000",3),("Payroll","75000", 4);
+CREATE DATABASE employee_db;
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Jeff", "Miller",2,3),("Mariah", "Cooper",3, null), 
-("Constance", "Battle",1, null), ("Jacob", "Langston",4, null);
+USE employee_db;
+ 
+CREATE TABLE department (
+ id INT  AUTO_INCREMENT NOT NULL ,
+  section VARCHAR (30) NULL,
+  PRIMARY KEY (id)
+);
 
+CREATE TABLE role (
+  id INT  AUTO_INCREMENT NOT NULL,
+  title VARCHAR (30) NULL,
+  salary DECIMAL NULL,
+   FOREIGN KEY department_id INT NULL, 
+  PRIMARY KEY (id)
+);
 
+CREATE TABLE employee (
+  id INT  AUTO_INCREMENT NOT NULL,
+  first_name VARCHAR (30),
+  last_name VARCHAR (30),
+  role_id  INT ,
+  manager_id INT ,
+  PRIMARY KEY (id)
+);
 
