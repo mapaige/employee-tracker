@@ -117,8 +117,8 @@ function add() {
 		.prompt([
 			{
 				type: 'list',
-				name: 'add',
-				message: 'What would you like to add add?',
+				name: 'view',
+				message: 'What would you like to add?',
 				choices: [' Employee', 'Department', 'Role']
 			},
 		])
@@ -146,14 +146,57 @@ function addDepartment(){
 				type: 'input',
 				message: 'What would you like the department title to be?'
 			}
-			then(function(answer) {
-				connection.query(
-					'INSERT into department(section)VALUES(?)',
-					answer.section,
-					function (err) {
-						console.table('Department added');
-						runSearch();
-					}
-				);
-			});
+		]).then(function (res) {
+			connection.query(
+				'INSERT into department(section)VALUES(?)',
+				res.department,
+				function (err) {
+					console.table('Department added');
+					runSearch();
+				}
+			);
+		});
+}
+
+function addEmployee(){
+	inquirer
+		.prompt([
+			{
+				name:'first_name',
+				type: 'input',
+				message: 'Please add first name?'
+			}
+		]).then(function (res) {
+			connection.query(
+				'INSERT into employee(first_name)VALUES(?)',
+				res.first_name,
+				function (err) {
+					console.table('First Name added');
+					runSearch();
+				}
+			);
+		});
+}
+
+function addRole(){
+	inquirer
+		.prompt([
+			{
+				name: 'role',
+				type: 'input',
+				message: "Enter role title:"
+			},
+			{
+				name:'salary',
+				type: 'number',
+				message:'Enter salary:',
+				
+			},
+			{
+				name: 'department id',
+				type:	'number',
+				message:'Enter department id',
+			},
+			
+		]);
 }
