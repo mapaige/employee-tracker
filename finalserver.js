@@ -112,23 +112,24 @@ function viewByRole() {
 
 // Add function
 
-function add() {
+function add(){
 	inquirer
 		.prompt([
 			{
 				type: 'list',
-				name: 'view',
+				name: 'add',
 				message: 'What would you like to add?',
 				choices: [' Employee', 'Department', 'Role']
 			},
 		])
 		.then((answer) => {
 			switch (answer.add) {
-				case 'Employee':
-					addEmployee();
-					break;
+				
 				case 'Department':
 					addDepartment();
+					break;
+					case 'Employee':
+					addEmployee();
 					break;
 				case 'Role':
 					addRole();
@@ -143,10 +144,10 @@ function addDepartment(){
 		.prompt([
 			{
 				name:'department',
-				type: 'input',
+				type: 'add',
 				message: 'What would you like the department title to be?'
 			}
-		]).then(function (res) {
+		]).then(function(res) {
 			connection.query(
 				'INSERT into department(section)VALUES(?)',
 				res.department,
@@ -163,13 +164,13 @@ function addEmployee(){
 		.prompt([
 			{
 				name:'first_name',
-				type: 'input',
+				type: 'add',
 				message: 'Please add first name?'
 			}
-		]).then(function (res) {
+		]).then(function(res) {
 			connection.query(
 				'INSERT into employee(first_name)VALUES(?)',
-				res.first_name,
+				res.employee,
 				function (err) {
 					console.table('First Name added');
 					runSearch();
@@ -182,7 +183,7 @@ function addRole(){
 	inquirer
 		.prompt([
 			{
-				name: 'role',
+				name: 'title',
 				type: 'input',
 				message: "Enter role title:"
 			},
@@ -198,5 +199,20 @@ function addRole(){
 				message:'Enter department id',
 			},
 			
-		]);
+		]).then(function(answer){
+			connection.query(
+				"INSERT INTO role SET ?",
+				{
+					title:answer.role,
+					salary: answer.salary,
+					department_id: answer.department_id
+				},
+				function(err){
+					console.table("________________");
+					console.table("Employee roles updated with " + answer.role);
+					console.table("_________");
+				}
+			)
+		})
+	
 }

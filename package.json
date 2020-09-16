@@ -1,0 +1,31 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "tracker ",
+  "main": "finalserver.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "table": "^6.0.3",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapaige/employee-tracker.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker"
+  ],
+  "author": "Marcia Paige",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapaige/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/mapaige/employee-tracker#readme"
+}
