@@ -36,7 +36,7 @@ function runSearch() {
 			message: 'What would you like to do?',
 			choices: ['View', 'Add', 'Update', 'Exit'],
 		})
-		.then(function (res) {
+		.then(function(res) {
 			switch (res.action) {
 				case 'View':
 					view();
@@ -216,3 +216,33 @@ function addRole(){
 		})
 	
 }
+
+// Update function
+// function updateEmployee() {
+// 	connection.query("SELECT * FROM employee"),
+// 	function(err,res){
+// 		inquirer
+// 		.prompt([
+// 			{
+// 				name:'choice',
+// 				type:'list',
+// 				choices: ['Employee', 'Department', 'Role']
+// 			},
+
+// 		])
+// 	}
+		
+// 		.then(function (res) {
+// 			connection.query(
+// 				var saveName= answer.choice;
+// 				connection.query("SELECT * FROM employee"),
+// 				res.employee,
+// 				function(err,res){
+// 					console.table('Employee updated');
+// 					runSearch();
+// 			)
+			
+// }
+		
+		
+// }
