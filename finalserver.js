@@ -22,7 +22,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
 	if (err) throw err;
-	console.log('connectd as id  ' + connection.threadId);
+	console.log('connected as id  ' + connection.threadId);
 	runSearch();
 });
 
@@ -119,7 +119,7 @@ function add(){
 				type: 'list',
 				name: 'add',
 				message: 'What would you like to add?',
-				choices: [' Employee', 'Department', 'Role']
+				choices: ['Employee', 'Department', 'Role']
 			},
 		])
 		.then((answer) => {
@@ -133,6 +133,7 @@ function add(){
 					break;
 				case 'Role':
 					addRole();
+					break;
 				default:
 					console.log('default');
 			}
@@ -164,15 +165,30 @@ function addEmployee(){
 		.prompt([
 			{
 				name:'first_name',
-				type: 'add',
+				type: 'input',
 				message: 'Please add first name?'
+			},
+			{
+				name:'last_name',
+				type: 'input',
+				message: 'Please add last name?'
+			},
+			{
+				name:'role_id',
+				type: 'input',
+				message: 'Please add Role id?'
+			},
+			{
+				name:'manager_id',
+				type: 'input',
+				message: 'Please add Manager id?'
 			}
 		]).then(function(res) {
 			connection.query(
-				'INSERT into employee(first_name)VALUES(?)',
-				res.employee,
+				'INSERT into employee(first_name,last_name,role_id,manager_id)VALUES(?,?,?,?)',
+				[res.first_name,res.last_name,res.role_id,res.manager_id],
 				function (err) {
-					console.table('First Name added');
+					console.table('Employee added');
 					runSearch();
 				}
 			);
@@ -194,7 +210,7 @@ function addRole(){
 				
 			},
 			{
-				name: 'department id',
+				name: 'department_id',
 				type:	'number',
 				message:'Enter department id',
 			},
@@ -203,14 +219,13 @@ function addRole(){
 			connection.query(
 				"INSERT INTO role SET ?",
 				{
-					title:answer.role,
+					title:answer.title,
 					salary: answer.salary,
 					department_id: answer.department_id
 				},
 				function(err){
-					console.table("________________");
-					console.table("Employee roles updated with " + answer.role);
-					console.table("_________");
+				 console.log("Role added")
+				 runSearch();
 				}
 			)
 		})
@@ -218,31 +233,26 @@ function addRole(){
 }
 
 // Update function
-// function updateEmployee() {
-// 	connection.query("SELECT * FROM employee"),
-// 	function(err,res){
-// 		inquirer
-// 		.prompt([
-// 			{
-// 				name:'choice',
-// 				type:'list',
-// 				choices: ['Employee', 'Department', 'Role']
-// 			},
+function updateEmployee() {
+	inquirer.prompt([{
+		type:"input",
+		message:"What is the employee' id?",
+		name:"employeeId"
 
-// 		])
-// 	}
-		
-// 		.then(function (res) {
-// 			connection.query(
-// 				var saveName= answer.choice;
-// 				connection.query("SELECT * FROM employee"),
-// 				res.employee,
-// 				function(err,res){
-// 					console.table('Employee updated');
-// 					runSearch();
-// 			)
-			
-// }
+	},
+	{
+		type:"input",
+		message:"What is the  new role id?",
+		name:"roleId"
+
+	}]).then(function(answer){
+		connection.query("update employee SET role_id = ? WHERE id = ?",[answer.roleId, answer.employeeId],function(err){
+			console.log("Employee role updated")
+			runSearch();
+		})
+	})
+ 
+}
 		
 		
 // }
